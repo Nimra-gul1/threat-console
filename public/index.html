@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nimra Gul — Security Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="brand"><span class="dot"></span> NIMRA GUL <span style="color:var(--muted); font-weight:400;">// sec-lab</span></div>
+  <div class="navlinks">
+    <a href="#tools">Tools</a>
+    <a href="#challenges">Challenges</a>
+    <a href="#concepts">Concepts</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">● live security console</div>
+    <h1>I don't just study security —<br><span>I build things that break, and fix them.</span></h1>
+    <p>A hands-on lab of working security tools, cracked challenges, and core concepts — built by a software engineer who reads CVEs for fun. Everything below runs live in your browser.</p>
+    <div class="cta-row">
+      <a href="#tools" class="btn btn-primary">Run the tools →</a>
+      <a href="#challenges" class="btn btn-ghost">Try the CTF</a>
+    </div>
+  </div>
+  <div class="hero-left" style="flex:1;">
+    <div class="radar-window">
+      <div class="term-bar">
+        <span class="term-dot" style="background:#FF6B6B;"></span>
+        <span class="term-dot" style="background:#FFB454;"></span>
+        <span class="term-dot" style="background:#7FD88F;"></span>
+        <span style="margin-left:8px; font-size:12px; color:var(--muted);">network-radar — live sweep</span>
+      </div>
+      <div class="radar-body">
+        <svg class="radar-svg" viewBox="0 0 300 300" id="radar-svg">
+          <circle cx="150" cy="150" r="130" class="radar-ring"/>
+          <circle cx="150" cy="150" r="90" class="radar-ring"/>
+          <circle cx="150" cy="150" r="50" class="radar-ring"/>
+          <line x1="150" y1="20" x2="150" y2="280" class="radar-cross"/>
+          <line x1="20" y1="150" x2="280" y2="150" class="radar-cross"/>
+          <g id="radar-blips"></g>
+          <g class="radar-sweep-wrap">
+            <path d="M150,150 L150,20 A130,130 0 0,1 249,89 Z" class="radar-sweep"/>
+          </g>
+        </svg>
+        <div class="radar-legend" id="radar-legend">
+          <div class="rl-title">Nodes detected</div>
+          <div class="rl-list" id="rl-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="section-head">
+    <div class="eyebrow">01 · toolkit</div>
+    <h2>Working security tools</h2>
+    <p>No mockups — these run real logic. Type into them.</p>
+  </div>
+  <div class="tool-grid">
+
+    <div class="panel">
+      <div class="panel-head"><h3><span class="icon">◆</span> Password Strength Analyzer</h3></div>
+      <div class="panel-body">
+        <label for="pw-input">Test a password</label>
+        <input type="text" id="pw-input" placeholder="Type a password to analyze…" autocomplete="off">
+        <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+        <div class="strength-label" id="strength-label" style="color:var(--muted);">Waiting for input…</div>
+        <ul class="checklist" id="pw-checklist">
+          <li><span class="mark" id="c-len">○</span> At least 12 characters</li>
+          <li><span class="mark" id="c-upper">○</span> Uppercase letter</li>
+          <li><span class="mark" id="c-lower">○</span> Lowercase letter</li>
+          <li><span class="mark" id="c-num">○</span> Number</li>
+          <li><span class="mark" id="c-sym">○</span> Symbol</li>
+          <li><span class="mark" id="c-common">○</span> Not a common password</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3><span class="icon">◆</span> Hash Generator</h3></div>
+      <div class="panel-body">
+        <label for="hash-input">Input text</label>
+        <input type="text" id="hash-input" placeholder="e.g. correct horse battery staple" autocomplete="off">
+        <span class="hash-tag">SHA-256</span>
+        <div class="hash-out" id="sha256-out">—</div>
+        <span class="hash-tag">SHA-1</span>
+        <div class="hash-out" id="sha1-out">—</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3><span class="icon">◆</span> Port Scan Simulator</h3></div>
+      <div class="panel-body">
+        <label>Target IP / Hostname</label>
+        <input type="text" id="scan-target" value="127.0.0.1" autocomplete="off">
+        <button id="scan-btn" class="btn btn-primary" style="width:100%; justify-content:center; margin-bottom:14px;">Run scan</button>
+        <div class="scan-log" id="scan-log">Idle. Click "Run scan" to begin.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="challenges">
+  <div class="section-head">
+    <div class="eyebrow">02 · capture the flag</div>
+    <h2>Mini CTF — three flags</h2>
+    <p>Small, self-contained challenges. Solve them right here.</p>
+  </div>
+  <div class="ctf-grid">
+
+    <div class="panel ctf-card">
+      <div class="panel-head">
+        <h3>Encoding — Decode Me</h3>
+        <span class="diff diff-easy">Easy</span>
+      </div>
+      <div class="panel-body">
+        <p style="color:var(--muted); font-size:13.5px;">This string was encoded before being logged. Recover the flag.</p>
+        <div class="code-block">Y3RmeyMzYXNlNjRfaXNfbm90X2VuY3J5cHRpb259</div>
+        <div class="flag-row">
+          <input type="text" id="ctf1-input" placeholder="ctf{...}">
+          <button class="btn btn-primary" onclick="checkCTF(1)">Submit</button>
+        </div>
+        <div class="feedback" id="ctf1-feedback"></div>
+        <button class="hint-toggle" onclick="toggleHint(1)">Show hint</button>
+        <div class="hint-text" id="ctf1-hint">It's a common web-safe binary-to-text encoding — try decoding it in a browser console.</div>
+      </div>
+    </div>
+
+    <div class="panel ctf-card">
+      <div class="panel-head">
+        <h3>Classical Cipher</h3>
+        <span class="diff diff-med">Medium</span>
+      </div>
+      <div class="panel-body">
+        <p style="color:var(--muted); font-size:13.5px;">Intercepted message, shifted by an unknown amount. Find the plaintext flag.</p>
+        <div class="code-block">phg{fdhvdu_flskhuv_duh_zhdn}</div>
+        <div class="flag-row">
+          <input type="text" id="ctf2-input" placeholder="ctf{...}">
+          <button class="btn btn-primary" onclick="checkCTF(2)">Submit</button>
+        </div>
+        <div class="feedback" id="ctf2-feedback"></div>
+        <button class="hint-toggle" onclick="toggleHint(2)">Show hint</button>
+        <div class="hint-text" id="ctf2-hint">Each letter is shifted the same number of places through the alphabet. Try shift 3.</div>
+      </div>
+    </div>
+
+    <div class="panel ctf-card">
+      <div class="panel-head">
+        <h3>Spot the Vulnerability</h3>
+        <span class="diff diff-hard">Hard</span>
+      </div>
+      <div class="panel-body">
+        <p style="color:var(--muted); font-size:13.5px;">This snippet renders a comment straight from user input. Name the vulnerability class (one word, e.g. XSS, SQLI, CSRF).</p>
+        <div class="code-block">app.get('/comment', (req, res) =&gt; {
+  const c = req.query.text;
+  res.send('&lt;div&gt;' + c + '&lt;/div&gt;');
+});</div>
+        <div class="flag-row">
+          <input type="text" id="ctf3-input" placeholder="Vulnerability class">
+          <button class="btn btn-primary" onclick="checkCTF(3)">Submit</button>
+        </div>
+        <div class="feedback" id="ctf3-feedback"></div>
+        <button class="hint-toggle" onclick="toggleHint(3)">Show hint</button>
+        <div class="hint-text" id="ctf3-hint">User input is concatenated directly into HTML with no escaping — what runs in the victim's browser?</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="concepts">
+  <div class="section-head">
+    <div class="eyebrow">03 · fundamentals</div>
+    <h2>Core concepts, made visible</h2>
+    <p>Hover the cards. The fundamentals I build every project against.</p>
+  </div>
+
+  <div class="cia-wrap">
+    <div class="cia-card"><div class="cia-letter">C</div><h4>Confidentiality</h4><p>Only the people who should see the data, can. Enforced through encryption and access control.</p></div>
+    <div class="cia-card"><div class="cia-letter">I</div><h4>Integrity</h4><p>Data isn't altered in transit or at rest without detection. Hashing and signatures prove it.</p></div>
+    <div class="cia-card"><div class="cia-letter">A</div><h4>Availability</h4><p>Systems stay up for the people who legitimately need them — resilient against failure and DDoS.</p></div>
+  </div>
+
+  <div class="attack-grid">
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front"><div class="af-icon">🎣</div><h4>Phishing</h4></div>
+      <div class="flip-back">Deceptive messages trick users into handing over credentials or clicking malicious links.</div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front"><div class="af-icon">📝</div><h4>XSS</h4></div>
+      <div class="flip-back">Unsanitized input lets an attacker run script in another user's browser session.</div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front"><div class="af-icon">🗄️</div><h4>SQL Injection</h4></div>
+      <div class="flip-back">Malicious input alters a database query, exposing or corrupting data it shouldn't touch.</div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front"><div class="af-icon">🕵️</div><h4>Man-in-the-Middle</h4></div>
+      <div class="flip-back">An attacker secretly intercepts traffic between two parties who believe they're talking directly.</div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front"><div class="af-icon">💥</div><h4>DDoS</h4></div>
+      <div class="flip-back">A flood of traffic from many sources overwhelms a service until legitimate users can't reach it.</div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front"><div class="af-icon">🎭</div><h4>Social Engineering</h4></div>
+      <div class="flip-back">Manipulating people, not systems — the weakest link is often trust, not technology.</div>
+    </div></div>
+  </div>
+</section>
+
+<footer id="contact">
+  <p>Built by Nimra Gul — Software Engineering, Riphah International University · Islamabad</p>
+  <div>
+    <a href="#tools">Tools</a> · <a href="#challenges">Challenges</a> · <a href="#concepts">Concepts</a>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
